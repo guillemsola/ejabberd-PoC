@@ -1,10 +1,21 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: darkslategray;
 }
 
 a {
   color: #00B7FF;
+}
+
+input {
+    margin: 4px;
+}
+
+#pubsub {
+    margin: 10px 0;
+    border: 1px solid black;
+    padding: 10px;
 }
 
 #log {

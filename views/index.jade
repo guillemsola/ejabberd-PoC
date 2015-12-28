@@ -4,8 +4,7 @@ block content
   h1= title
   p Jabberd #{title}
 
- 
-  #login
+   #login
     form(name='cred')
       label JID
       input(type='text', id='jid', value='guillem@example.com')
@@ -15,6 +14,22 @@ block content
       
       input(type='button', id='connect', value='connect')
 
-  input(type='button', id='clear-log', value='Clear Log')
+    #pubsub
+        label Node
+        input(type='text', id='node-name', value='test')
+        input(type='button', id='create-node', value='Create')
+        input(type='button', id='delete-node', value='Delete')
+        input(type='button', id='get-node-form', value='Details')
+        input(type='button', id='subscribe-node', value='Subscribe')
+        input(type='button', id='list-subscriptions-node', value='Subscriptions')
+        label Event
+        input(type='text', id='node-event', value='Hello World!')
+        input(type='button', id='publish-node', value='Publish')
+
+    #Miscellanea
+        input(type='button', id='clear-log', value='Clear Log')
+
+  
+  input(type='button', id='do', value='do')
     
   #log
