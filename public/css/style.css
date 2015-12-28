@@ -1,0 +1,27 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#log {
+    font-family: "Courier New", Courier, monospace;
+    font-size: smaller;
+    color: grey;
+    overflow: scroll;
+    height: 350px;
+    margin: 10px 0;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#log .received {
+    color: indianred;
+}
+
+#log .sent {
+    color: darkolivegreen;
+}

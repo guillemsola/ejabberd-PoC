@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  p Jabberd #{title}
+
+ 
+  #login
+    form(name='cred')
+      label JID
+      input(type='text', id='jid', value='guillem@example.com')
+  
+      label Password
+      input(type='password', id='pass', value='pwd1234')
+      
+      input(type='button', id='connect', value='connect')
+
+  input(type='button', id='clear-log', value='Clear Log')
+    
+  #log
