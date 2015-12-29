@@ -1,18 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Jabberd #{title}
+    h1 #{title}
 
-   #login
-    form(name='cred')
-      label JID
-      input(type='text', id='jid', value='guillem@example.com')
-  
-      label Password
-      input(type='password', id='pass', value='pwd1234')
-      
-      input(type='button', id='connect', value='connect')
+    #login
+        label JID
+        input(type='text', id='jid', value='guillem@example.com')
+
+        label Password
+        input(type='password', id='pass', value='pwd1234')
+        
+        input(type='button', id='connect', value='connect')
 
     #pubsub
         label Node
@@ -26,10 +24,20 @@ block content
         input(type='text', id='node-event', value='Hello World!')
         input(type='button', id='publish-node', value='Publish')
 
+    #muc
+        label Room
+        input(type='text', id='muc-name', value='muc1')
+        input(type='button', id='join-muc', value='Join')
+        // input(type='button', id='delete-muc', value='Delete')
+        // input(type='button', id='list-subscriptions-muc', value='Subscriptions')
+        label Message
+        input(type='text', id='muc-msg', value='Hello All!')
+        input(type='button', id='send-muc', value='Send')
+        #groupchat
+
     #Miscellanea
         input(type='button', id='clear-log', value='Clear Log')
 
-  
-  input(type='button', id='do', value='do')
+    input(type='button', id='do', value='do')
     
-  #log
+    #log

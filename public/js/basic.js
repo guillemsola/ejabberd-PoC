@@ -31,6 +31,9 @@ function onConnect(status) {
         $('#connect').get(0).value = 'connect';
     } else if (status == Strophe.Status.CONNECTED) {
         log('Strophe is connected.');
+        
+        // addHandler: function (handler, ns, name, type, id, from)
+        connection.addHandler(onEvent, null, 'message', null, null, pubsubUrl);
     }
    
     // connection.send($pres().tree());
@@ -39,8 +42,7 @@ function onConnect(status) {
 $(document).ready(function () {
     log('Document ready.');
     connection = new Strophe.Connection(BOSH_SERVICE);
-    // Receive messages: handler, namespace, stanzaName (normal, headline), type, id, from, options
-    connection.addHandler(getEvent, null, 'message', null, null, pubsubUrl);
+
  
     connection.rawInput = rawInput;
     connection.rawOutput = rawOutput;
@@ -60,10 +62,32 @@ $(document).ready(function () {
             connection.disconnect();
         }
     });
+    
+    // LOG
 
     $('#clear-log').bind('click', function () {
         $('#log').empty();
     });
+    
+    // MUC
+    
+    $('#join-muc').bind('click', function () {
+        log('Joining MUC ' + mucName());
+        
+        connection.addHandler(onMucMessage, null, "message", "groupchat");
+        
+        var pres = $pres({from: jid(), to: mucName() + mucNick() })
+        .c('x', {xmlns : 'http://jabber.org/protocol/muc'});
+        connection.send(pres);
+    });
+    
+    $('#send-muc').bind('click', function() {
+        var msg = $msg({to: mucName(), from: jid(), type: 'groupchat'})
+        .c('body').t(mucMessage());
+        connection.send(msg); 
+    });
+    
+    // PUBSUB
 
     $('#create-node').bind('click', function () {
         log('Create node ' + nodeName());
@@ -101,7 +125,7 @@ $(document).ready(function () {
     $('#list-subscriptions-node').bind('click', function () {
         log('List subscriptions from node ' + nodeName());
         var pub = $iq({ type: 'get', to: pubsubUrl, from: jid() })
-            .c('pubsub', { xmlns: 'http://jabber.org/protocol/pubsub' })
+            .c('pubsub', { xmlns: 'http://jabber.org/protocol/pubsub#owner' })
             .c('subscriptions', { node: nodeName() });
         connection.sendIQ(pub.tree(), pubSuccess, pubError, 5000);
     });
@@ -136,7 +160,41 @@ function nodeName() {
     return $('#node-name').get(0).value;    
 };
 
-function getEvent(event) {
+function mucName() {
+    return $('#muc-name').val() + '@conference.example.com';    
+};
+
+function mucNick() {
+    var patt = new RegExp("(.*)@");
+    var nick = patt.exec(jid())[1];
+    return '/' + nick;  
+};
+
+function mucMessage() {
+    return $('#muc-msg').val();
+}
+
+function onEvent(msg) {
     log('NEW EVENT!!!');
-    log(event, 'event');
+    log(event, 'msg');
+    
+    return true;
+}
+
+function onMucMessage(message) {
+    var from = $(message).attr('from');
+    var body = $(message).children('body').text();
+    var delayed = $(message).children("delay").length > 0  ||
+        $(message).children("x[xmlns='jabber:x:delay']").length > 0;
+    
+    
+    $('#groupchat').prepend('<p class="message"></p>');
+    
+    if(delayed) { 
+        $('#groupchat p:first').addClass('delayed')
+    }
+    $('#groupchat p:first').append('<span class="from">' + from + '</span>');
+    $('#groupchat p:first').append('<span class="body"> ' + body + '</span>');
+    
+    return true;
 }

@@ -1,7 +1,6 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: darkslategray;
+  /*background-color: darkslategray;*/
 }
 
 a {
@@ -12,10 +11,32 @@ input {
     margin: 4px;
 }
 
+#muc,
 #pubsub {
     margin: 10px 0;
     border: 1px solid black;
     padding: 10px;
+}
+
+#muc #groupchat {
+    border: 1px solid grey;
+    padding: 0 0 0 5px;
+    max-height: 50px;
+    overflow-y: scroll;
+    font-size: smaller;
+}
+
+#groupchat p {
+    margin: 2px 0px;
+}
+
+#groupchat p .from {
+    color: grey;
+}
+
+#groupchat .delayed {
+    font-style: italic;
+    color: slateblue;
 }
 
 #log {
