@@ -3,16 +3,20 @@ extends layout
 block content
     h1 #{title}
 
-    #login
+    #login.box
         label JID
-        input(type='text', id='jid', value='guillem@example.com')
+        input(type='text', id='jid', value='guillem@myatom.org')
 
         label Password
         input(type='password', id='pass', value='pwd1234')
         
         input(type='button', id='connect', value='connect')
+        
+        label Priority
+        input(type='text', id='priority', value='1')
+        input(type='button', id='presence', value='Send Presence')
 
-    #pubsub
+    #pubsub.box
         label Node
         input(type='text', id='node-name', value='test')
         input(type='button', id='create-node', value='Create')
@@ -23,8 +27,16 @@ block content
         label Event
         input(type='text', id='node-event', value='Hello World!')
         input(type='button', id='publish-node', value='Publish')
+        #events.messages
+        
+    #message.box
+        label To
+        input(type='text', id='msg-to', value='admin@myatom.org')
+        input(type='text', id='msg-txt', value='Hello')
+        input(type='button', id='msg-send', value='Send')
+        #messages.messages
 
-    #muc
+    #muc.box
         label Room
         input(type='text', id='muc-name', value='muc1')
         input(type='button', id='join-muc', value='Join')
@@ -33,9 +45,9 @@ block content
         label Message
         input(type='text', id='muc-msg', value='Hello All!')
         input(type='button', id='send-muc', value='Send')
-        #groupchat
+        #groupchat.messages
 
-    #Miscellanea
+    #Miscellanea.box
         input(type='button', id='clear-log', value='Clear Log')
 
     input(type='button', id='do', value='do')

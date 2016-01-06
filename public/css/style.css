@@ -11,30 +11,30 @@ input {
     margin: 4px;
 }
 
-#muc,
-#pubsub {
+.box {
     margin: 10px 0;
     border: 1px solid black;
     padding: 10px;
 }
 
-#muc #groupchat {
+.messages {
     border: 1px solid grey;
     padding: 0 0 0 5px;
+    min-height: 15px;
     max-height: 50px;
     overflow-y: scroll;
     font-size: smaller;
 }
 
-#groupchat p {
+.messages p {
     margin: 2px 0px;
 }
 
-#groupchat p .from {
+.messages p .from {
     color: grey;
 }
 
-#groupchat .delayed {
+.messages .delayed {
     font-style: italic;
     color: slateblue;
 }
